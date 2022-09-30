@@ -35,10 +35,12 @@ function playRound(playerSelection, computerSelection) {
     } else if (playerSelection === "scissors" && computerSelection === "rock") {
         computerScore++;
         return "You lose! Rock beats scissors!"
-    } else {
+    } else if (playerSelection === null || playerSelection === undefined || playerSelection === "") {
         status = "Cancelled";
         alert("Cancelled");
-    }
+    } else {
+        alert("Please enter rock, paper, or scissors");
+    };
 
 };
 
