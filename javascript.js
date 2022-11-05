@@ -10,58 +10,89 @@ let playerScore = 0;
 let computerScore = 0;
 let status;
 
+let div = document.querySelector('div');
+let result = document.createElement('p');
+div.appendChild(result);
+
+let pScoreBox = document.querySelector('.player');
+let pScore = document.createElement('p');
+pScoreBox.appendChild(pScore);
+pScore.textContent = playerScore;
+
+let cScoreBox = document.querySelector('.computer');
+let cScore = document.createElement('p');
+cScoreBox.appendChild(cScore);
+cScore.textContent = computerScore;
+
+let rock = document.querySelector('.rock');
+rock.addEventListener('click', function(e) {
+    playRound("rock");
+});
+
+let paper = document.querySelector('.paper');
+paper.addEventListener('click', function(e) {
+    playRound("paper");
+});
+
+let scissors = document.querySelector('.scissors');
+scissors.addEventListener('click', function(e) {
+    playRound("scissors");
+});
+
+let buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', function(e) {
+        cScore.textContent = computerScore;
+        pScore.textContent = playerScore;
+
+    })
+})
+
 function playRound(playerSelection, computerSelection) {
     
-    playerSelection = prompt( "Rock, paper, or scissors?").toLowerCase();
     computerSelection = getComputerChoice();
     
     if (playerSelection === computerSelection) {
-        return "Draw";
+        result.textContent = "Draw";
     } else if (playerSelection === "rock" && computerSelection === "scissors") {
         playerScore++;
-        return "You win! Rock beats scissors!"
+        result.textContent = "You win! Rock beats scissors!"
     } else if (playerSelection === "paper" && computerSelection === "rock") {
         playerScore++;
-        return "You win! Paper covers rock!"
+        result.textContent = "You win! Paper covers rock!"
     } else if (playerSelection === "scissors" && computerSelection === "paper") {
         playerScore++;
-        return "You win! Scissors cut paper!"
+        result.textContent = "You win! Scissors cut paper!"
     } else if (playerSelection === "paper" && computerSelection === "scissors") {
         computerScore++;
-        return "You lose! Scissors cut paper!"
+        result.textContent = "You lose! Scissors cut paper!"
     } else if (playerSelection === "rock" && computerSelection === "paper") {
         computerScore++;
-        return "You lose! Paper covers rock!"
+        result.textContent = "You lose! Paper covers rock!"
     } else if (playerSelection === "scissors" && computerSelection === "rock") {
         computerScore++;
-        return "You lose! Rock beats scissors!"
-    } else if (playerSelection === null || playerSelection === undefined || playerSelection === "") {
-        status = "Cancelled";
-        alert("Cancelled");
-    } else {
-        alert("Please enter rock, paper, or scissors");
+        result.textContent = "You lose! Rock beats scissors!"
+    }
+    
+    checkStatus();
+};
+
+    
+function checkStatus() {
+    if (playerScore === 5 || computerScore === 5) {
+        if (computerScore > playerScore) {
+            result.textContent = "You lost the game. The score was " + playerScore + "-" + computerScore;
+            playerScore = 0;
+            computerScore = 0;
+        } else if (playerScore > computerScore) {
+            result.textContent = "You won the game! The score was " + playerScore + "-" + computerScore;
+            playerScore = 0;
+            computerScore = 0;
+        } else {
+            result.textContent = "You cancelled the game.";
+            playerScore = 0;
+            computerScore = 0;
+        };
     };
 
 };
-
-function game() {
-    alert("Best of 5");
-
-    status = "started";
-
-    
-    
-    if (computerScore > playerScore) {
-        console.log("You lost the game. The score was " + playerScore + "-" + computerScore);
-        playerScore = 0;
-        computerScore = 0;
-    } else if (playerScore > computerScore) {
-        console.log("You won the game! The score was " + playerScore + "-" + computerScore);
-        playerScore = 0;
-        computerScore = 0;
-    } else {
-        console.log("You cancelled the game.");
-        playerScore = 0;
-        computerScore = 0;
-    }
-}
