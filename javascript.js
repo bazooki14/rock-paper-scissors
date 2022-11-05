@@ -49,15 +49,13 @@ function game() {
 
     status = "started";
 
-    do {
-        console.log(playRound());
-    } while ((playerScore < 3) && (computerScore < 3) && (status != "Cancelled"))
     
-    if (computerScore === 3) {
+    
+    if (computerScore > playerScore) {
         console.log("You lost the game. The score was " + playerScore + "-" + computerScore);
         playerScore = 0;
         computerScore = 0;
-    } else if (playerScore === 3) {
+    } else if (playerScore > computerScore) {
         console.log("You won the game! The score was " + playerScore + "-" + computerScore);
         playerScore = 0;
         computerScore = 0;
